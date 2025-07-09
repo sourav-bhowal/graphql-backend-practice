@@ -13,19 +13,30 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  threads:
-    image: threads:latest
-    container_name: threads-app
-    build:
-      context: .
-      dockerfile: Dockerfile
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
     environment:
-      DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
-      THREADS_PORT: 8000
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
     ports:
-      - "8000:8000"
+      - "5050:80"
     depends_on:
       - postgres
+
+  # threads:
+  #   image: threads:latest
+  #   container_name: threads-app
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
+  #     THREADS_PORT: 8000
+  #   ports:
+  #     - "8000:8000"
+  #   depends_on:
+  #     - postgres
 
 volumes:
   postgres_data:

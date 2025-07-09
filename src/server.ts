@@ -1,6 +1,6 @@
 import express from "express";
-import { ApolloServer, gql } from "apollo-server-express";
 import bodyParser from "body-parser";
+import { graphqlServer } from "./graphql";
 
 async function startServer() {
   const app = express();
@@ -9,26 +9,8 @@ async function startServer() {
   // Middleware to parse JSON bodies
   app.use(bodyParser.json());
 
-  // Define your GraphQL schema and resolvers here
-  const typeDefs = gql`
-    type Query {
-      hello: String
-      sayHello(name: String!): String
-    }
-  `;
-
-  const resolvers = {
-    Query: {
-      hello: () => "Hello, world!",
-      sayHello: (_: any, { name }: { name: string }) => {
-        return `Hello, ${name}!`;
-      },
-    },
-  };
-
-  const gqlServer = new ApolloServer({ typeDefs, resolvers });
-
-  await gqlServer.start();
+  // Initialize GraphQL server
+  const gqlServer = await graphqlServer();
 
   gqlServer.applyMiddleware({ app });
 
@@ -39,6 +21,4 @@ async function startServer() {
   });
 }
 
-startServer().catch((error) => {
-  console.error("Error starting the gqlServer:", error);
-});
+startServer();
