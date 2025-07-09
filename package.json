@@ -1,0 +1,20 @@
+{
+  "name": "backend-social-media",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "apollo-server-express": "^3.13.0",
+    "express": "^5.1.0",
+    "graphql": "^16.11.0"
+  },
+  "scripts": {
+    "dev": "bun --hot run ./src/index.ts"
+  }
+}
