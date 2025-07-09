@@ -4,4 +4,6 @@ export const queries = `#graphql
     email: String!
     password: String!
    ): String
+
+   getCurrentUser: User
 `;

@@ -10,6 +10,19 @@ const queries = {
 
     return response.token;
   },
+  getCurrentUser: async (_: any, __: any, context: any) => {
+    if (!context.user) {
+      throw new Error("Unauthorized");
+    }
+
+    const user = await UserService.getCurrentUser(context.user.id);
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    return user;
+  },
 };
 
 const mutations = {
